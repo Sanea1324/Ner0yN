@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поздравление</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffcccb;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #link {
+            font-size: 24px;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
+        }
+        #greeting {
+            display: none;
+            font-size: 28px;
+            color: white;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            animation: floatUp 4s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body onclick="changeText()">
+
+    <a id="link" onclick="showGreeting(event)">Apasă</a>
+    <div id="greeting">Cu 14 februarie!</div>
+
+    <script>
+        let messages = ["Să ai o zi minunată, plină de căldură și emoție!", "De Ziua Îndrăgostiților, îți doresc o zi plină de iubire, zâmbete și momente speciale alături de cei dragi.", "Fie ca fiecare clipă să fie un motiv de fericire și fiecare iubire să devină mai puternică cu fiecare zi."];
+        let index = 0;
+
+        function showGreeting(event) {
+            event.stopPropagation(); // Чтобы клик не сменил текст сразу
+            document.getElementById("link").style.display = "none";
+            document.getElementById("greeting").style.display = "block";
+            setInterval(createHeart, 300);
+        }
+
+        function changeText() {
+            if (document.getElementById("greeting").style.display === "block") {
+                index = (index + 1) % messages.length;
+                document.getElementById("greeting").innerText = messages[index];
+            }
+        }
+
+        function createHeart() {
+            let heart = document.createElement("img");
+            heart.src = "https://cdn-icons-png.flaticon.com/512/833/833472.png";// Используй локальный файл или ссылку
+            heart.className = "heart";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+    </script>
+
+</body>
+</html>
